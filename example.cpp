@@ -14,5 +14,7 @@ int main() {
 	ex.ExecuteName("HelloExecute++");
 	ex.RunFunction("uname -a");
 	ex.RunFunction("xdg-open https://github.com/FerhatGec");
+	// ex.DefaultFunction("ls");
+	// ex.DefaultFunction("execplusplus"); <shellname> : Error.	
 	return 0;
 }

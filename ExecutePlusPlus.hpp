@@ -166,5 +166,9 @@ public:
 	    if (execFlag == 2) 
 	          ExecuteArgsPiped(parsedArgs, parsedArgsPiped); 
 	}
+
+	void DefaultFunction(std::string name) {
+		system(name.c_str());
+	}
 };
 #endif // EXECUTE_PLUS_PLUS_HPP
