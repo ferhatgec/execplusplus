@@ -13,8 +13,9 @@ int main() {
 	ExecutePlusPlus ex;
 	ex.ExecuteName("HelloExecute++");
 	ex.RunFunction("uname -a");
-	ex.RunFunction("xdg-open https://github.com/FerhatGec");
+	ex.RunFunction("xdg-open https://github.com/ferhatgec");
 	// ex.DefaultFunction("ls");
 	// ex.DefaultFunction("execplusplus"); <shellname> : Error.	
+	std::cout << ex.ExecWithOutput("uname");	
 	return 0;
 }
