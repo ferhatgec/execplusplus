@@ -161,28 +161,36 @@ void DefaultFunction(const char* exec) {
 	system(exec);
 }
 
+/* mostly part from rosettacode */
 char* ExecWithOutput(const char* command) {
-	char buffer[128];
-	char* result = "";
-
-   	// Open pipe to file
-   	FILE* pipe = popen(command, "r");
-
-	if(!pipe) {
-		return "popen failed!";
-	}
-
-   	// read till end of process:
-   	while(!feof(pipe)) {
-		// Use buffer to read and add to result
-      	if(fgets(buffer, 128, pipe) != NULL) {
-			strcat(result, buffer);
-		}
-	}
-
-	pclose(pipe);
-
-   	return result;
+	FILE *fd;
+    fd = popen(command, "r");
+    
+    if (!fd) return "";
+ 
+    char   buffer[256];
+    size_t chread;
+    
+    /* String to store entire command contents in */
+    size_t comalloc = 256;
+    size_t comlen   = 0;
+    char  *comout   = malloc(comalloc);
+ 
+    /* Use fread so binary data is dealt with correctly */
+    while((chread = fread(buffer, 1, sizeof(buffer), fd)) != 0) {
+        if(comlen + chread >= comalloc) {
+            comalloc *= 2;
+            comout = realloc(comout, comalloc);
+        }
+        
+        memmove(comout + comlen, buffer, chread);
+        comlen += chread;
+    }
+ 
+	/* close */ 	
+    pclose(fd);
+    
+ 	return comout;
 }
 
 #endif // EXECUTE_PLUS_PLUS_H
